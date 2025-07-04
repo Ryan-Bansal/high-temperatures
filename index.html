@@ -109,14 +109,8 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#load-cached-weather-data" id="toc-load-cached-weather-data" class="nav-link active" data-scroll-target="#load-cached-weather-data">Load cached weather data</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -146,16 +140,18 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This R script uses the <strong>worldmet</strong> package to download real hourly weather data for <strong>Seattle Tacoma International Airport</strong> for the year <strong>2024</strong>. It filters the data to focus on the month of <strong>July</strong> and calculates the maximum daily temperature in <strong>Celsius</strong>, then converts these temperatures to <strong>Fahrenheit</strong>. Finally, it visualizes the daily high temperatures throughout July 2024 using a clear and informative line chart created with <strong>ggplot2</strong>. This approach allows for easy exploration of <strong>historical temperature trends</strong> without the need for <strong>API tokens</strong> or complex setups.</p>
-<p>library(dplyr) library(lubridate) library(ggplot2)</p>
-<section id="load-cached-weather-data" class="level1">
-<h1>Load cached weather data</h1>
-<p>seattle_weather &lt;- readRDS(“data/seattle_weather_2024.rds”)</p>
-<p>daily_max_temps &lt;- seattle_weather %&gt;% mutate(date = as.Date(date)) %&gt;% group_by(date) %&gt;% summarise(tmax_C = max(air_temp, na.rm = TRUE)) %&gt;% mutate(tmax_F = round(tmax_C * 9/5 + 32, 1))</p>
-<p>ggplot(daily_max_temps, aes(x = date, y = tmax_F)) + geom_line(color = “#0072B2”, size = 1) + geom_point(color = “#D55E00”, size = 1.5, alpha = 0.6) + labs( title = “Seattle Daily High Temperatures (°F) — Year 2024”, x = “Date”, y = “Max Temperature (°F)” ) + theme_minimal(base_size = 14) yaml Copy Edit</p>
+<p>This R script uses the <strong>worldmet</strong> package to download real hourly weather data for <strong>Seattle Tacoma International Airport</strong> for the year <strong>2024</strong>. It filters the data to focus throughout the whole year; and calculates the maximum daily temperature in <strong>Celsius</strong>, then converts these temperatures to <strong>Fahrenheit</strong>. Finally, it visualizes the daily high temperatures throughout all of 2024 using a clear and informative line chart created with <strong>ggplot2</strong>. This approach allows for easy exploration of <strong>historical temperature trends</strong> without the need for <strong>API tokens</strong> or complex setups.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
