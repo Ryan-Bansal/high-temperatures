@@ -1,0 +1,55 @@
+---
+title: "High Temperatures"
+author: "Ryan"
+execute:
+    echo: FALSE
+    warning: FALSE
+    message: FALSE
+---
+
+This R script uses the **worldmet** package to download real hourly weather data for **Seattle Tacoma International Airport** for the year **2024**. It filters the data to focus on the month of **July** and calculates the maximum daily temperature in **Celsius**, then converts these temperatures to **Fahrenheit**. Finally, it visualizes the daily high temperatures throughout July 2024 using a clear and informative line chart created with **ggplot2**. This approach allows for easy exploration of **historical temperature trends** without the need for **API tokens** or complex setups.
+
+
+
+```{r}
+library(worldmet)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+```
+
+```{r}
+stations <- getMeta()
+seattle_stations <- subset(stations, grepl("SEATTLE", station, ignore.case = TRUE))
+
+
+station_id <- "727930-24233"
+
+seattle_weather <- importNOAA(
+  code = station_id,
+  year = 2024,
+  hourly = TRUE,
+  path = tempdir()
+)
+
+daily_max_temps <- seattle_weather %>%
+  mutate(date = as.Date(date)) %>%
+  filter(month(date) == 7) %>%
+  group_by(date) %>%
+  summarise(tmax_C = max(air_temp, na.rm = TRUE)) %>%
+  mutate(tmax_F = round(tmax_C * 9/5 + 32, 1))
+
+ggplot(daily_max_temps, aes(x = date, y = tmax_F)) +
+  geom_line(color = "#0072B2", size = 1.2) +
+  geom_point(color = "#D55E00", size = 2) +
+  labs(
+    title = "Seattle Daily High Temperatures (°F) — July 2024",
+    x = "Date",
+    y = "Max Temperature (°F)"
+  ) +
+  theme_minimal(base_size = 14)
+
+```
+
+
+
