@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "High Temperatures",
+    "section": "",
+    "text": "This R script uses the worldmet package to download real hourly weather data for Seattle Tacoma International Airport for the year 2024. It filters the data to focus on the month of July and calculates the maximum daily temperature in Celsius, then converts these temperatures to Fahrenheit. Finally, it visualizes the daily high temperatures throughout July 2024 using a clear and informative line chart created with ggplot2. This approach allows for easy exploration of historical temperature trends without the need for API tokens or complex setups."
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
